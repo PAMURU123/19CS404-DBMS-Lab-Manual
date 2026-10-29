@@ -107,30 +107,45 @@ A popular restaurant wants to manage reservations, orders, and billing.
 
 ### ER Diagram:
 *Paste or attach your diagram here*  
-![ER Diagram](er_diagram_restaurant.png)
+<img width="1682" height="642" alt="image" src="https://github.com/user-attachments/assets/7c53c377-21ed-4b11-874c-3a43eab9b1b7" />
 
 ### Entities and Attributes
 
-| Entity | Attributes (PK, FK) | Notes |
-|--------|--------------------|-------|
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
-|        |                    |       |
+| Entity      | Attributes (PK, FK)                                                                | Notes                      |
+| ----------- | ------------------------------------------------                                   | -------------------------- |
+| Customer    | **Customer_ID (PK)**, Name, Contact Details, Table Number                             | Stores customer details    |
+| Chef        | **Chef_ID (PK)**, Name, Contact Details                                            | Stores reservation details |
+| Order       | **Order_ID (PK)**, Date Time, Total Amount , Status                                | Stores food order details  |
+| Food Item   | **Dish_ID (PK)**, Name, Category, Price                                            | Stores menu information    |
+| Waiter      | **Waiter_ID (PK)**, Name, Contact Details                                          | Stores waiter details      
+| Table       | **Table_ID (PK)**, Location, Status                                                | Stores customer details    |
+| OrderItem   | **OrderItem_ID (PK)**, **Order_ID (FK)**, **FoodItem_ID (FK)**,Quantity, Status    | Stores reservation details |
+| Bill        | **Bill_ID (PK)**,  **Order_ID (FK)**, Total Amount, Payment Status                 | Stores food order details  |
+| Supervisor  | **Supervisor_ID (PK)**, Name, Contact Details                                      | Stores menu information    |
 
 ### Relationships and Constraints
 
 | Relationship | Cardinality | Participation | Notes |
 |--------------|------------|---------------|-------|
-|              |            |               |       |
-|              |            |               |       |
-|              |            |               |       |
-
+| Customer - Table (Has) | Many-to-One | Customer: Total; Table: Partial | A customer is assigned to one table |
+| Waiter - Table (Serves) | One-to-Many | Waiter: Partial; Table: Total | A waiter serves multiple tables |
+| Waiter - Order (Creates) | One-to-Many | Waiter: Partial; Order: Total | A waiter creates multiple orders |
+| Order - Table (Belongs to) | Many-to-One | Order: Total; Table: Partial | An order belongs to one table |
+| Order - OrderItem (Contains) | One-to-Many | Both: Total | An order contains multiple order items |
+| OrderItem - FoodItem (Refers to) | Many-to-One | OrderItem: Total; FoodItem: Partial | Each order item refers to one food item |
+| Order - Bill (Generates) | One-to-One | Order: Partial; Bill: Total | A bill is generated for one order |
+| Chef - OrderItem (Prepares) | One-to-Many | Chef: Partial; OrderItem: Total | A chef prepares multiple order items |
+| Supervisor - Order (Manages) | One-to-Many | Supervisor: Partial; Order: Partial | A supervisor manages exceptional order cases |
 ### Assumptions
-- 
-- 
-- 
+- Each entity has a unique primary key.
+- Foreign keys maintain relationships between entities.
+- Each customer is assigned to one table.
+- Each order is created by one waiter and belongs to one table.
+- Each order contains multiple order items.
+- Each order item refers to one food item.
+- Each order can have one bill.
+- Each order item is prepared by one chef.
+- A supervisor oversees exceptional order cases when necessary.### Entities and Attributes
 
 ---
 
